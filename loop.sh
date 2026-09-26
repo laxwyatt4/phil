@@ -141,11 +141,19 @@ PY
   fi
   echo "model: $MODEL ($MODEL_WHY)" >&2
 
-  PROMPT="$(cat CYCLE.md)"
+  # The procedure alone reads as context, not a request: Sonnet 5 answered a
+  # bare CYCLE.md with "what would you like me to do?" and ran nothing
+  # (2026-09-26, LIGHT tick on the operator machine).
+  RUN_LINE="Run one trading cycle now by following the procedure below exactly, then stop."
+  PROMPT="$RUN_LINE
+
+$(cat CYCLE.md)"
   if [ "$REAL_MODE" -eq 1 ]; then
     if [ "$PEARL_UP" -eq 1 ] \
        && python3 core/real.py doctor 2>/dev/null | grep -q '"ready": true'; then
-      PROMPT="$(cat CYCLE.md REAL.md)"
+      PROMPT="$RUN_LINE
+
+$(cat CYCLE.md REAL.md)"
     else
       echo "WARNING: --real requested but Pearl Connect signer not ready — running paper-only cycle" >&2
     fi
