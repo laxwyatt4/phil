@@ -167,7 +167,8 @@ $(cat CYCLE.md REAL.md)"
   CMD=(claude -p "$PROMPT" --model "$MODEL"
        --allowedTools "Read" "Glob" "Grep" "WebSearch" "WebFetch"
          "Edit" "Write" "Task"
-         "Bash(python3 core/*)" "Bash(git add:*)" "Bash(git commit:*)"
+         "Bash(python3 core/*)" "Bash(python3 strategy/tools/*)"
+         "Bash(git add:*)" "Bash(git commit:*)"
          "Bash(git rev-parse:*)" "Bash(git log:*)" "Bash(git diff:*)"
          "Bash(git status:*)" "Bash(git symbolic-ref:*)"
          "Bash(git merge-base:*)" "Bash(git rev-list:*)"
@@ -175,7 +176,8 @@ $(cat CYCLE.md REAL.md)"
          "Bash(git checkout -B main HEAD)"
          "Bash(git rebase --continue)" "Bash(git rebase --abort)"
          "Bash(git rebase --quit)"
-         "Bash(git pull:*)")
+         "Bash(git pull:*)"
+         "Bash(printenv PHIL_LEASE)" "Bash(printenv PHIL_PUSH_BY_LOOP)")
   if [ "$PEARL_UP" -eq 1 ]; then
     # wallet_info is read-only; the mech_* tools buy predictions from the
     # Olas mech marketplace (~$0.01 USDC each, paid by the service safe) per
@@ -188,6 +190,10 @@ $(cat CYCLE.md REAL.md)"
           --disallowedTools "Read($STORE/.mcp.json)")
   fi
   CMD+=(--permission-mode acceptEdits)
+  # On Windows the session's Bash tool does not inherit variables set on the
+  # claude command line (2026-09-26: the agent saw PHIL_PUSH_BY_LOOP unset and
+  # tried to push itself), so hand them over through settings as well.
+  CMD+=(--settings "{\"env\":{\"PHIL_PUSH_BY_LOOP\":\"1\",\"PHIL_LEASE\":\"$PHIL_LEASE\"}}")
 
   # PHIL_PUSH_BY_LOOP tells CYCLE.md step 9 to commit but not push — the push
   # happens below, in this shell. GIT_TERMINAL_PROMPT/GIT_ASKPASS make any
