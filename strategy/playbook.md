@@ -4562,6 +4562,32 @@ Ruling: no boundary change. The veto did its job: it kept a $5 loss off
 the ledger. See the utterance section for the tally and the topical-word
 analogue rule.
 
+**2026-09-26 18:2xZ update (FULL cycle, operator machine; 2
+`outside-view-veto` + 2 `wide-spread-veto` rows settled on MrBeast
+`v9QtM6qnG50` week-1 views, 70-80M, see RETRO-20260926-1820.)**
+
+| Row | est vs mkt | Side | Realizable edge | Result | CF P&L |
+|---|---|---|---|---|---|
+| MrBeast wk1 60-70M (`92a9d80fc3c3`, outside-view-veto) | 0.59 / 0.3835 | Yes | +0.198 | No | -5.00 |
+| MrBeast wk1 70-80M (`8adb0a184d87`, outside-view-veto) | 0.40 / 0.625 | No | +0.210 | Yes | -5.00 |
+| MrBeast wk1 60-70M (`d842a0332a5a`, wide-spread-veto) | 0.18 / 0.094 | Yes | +0.045 | No | -5.00 |
+| MrBeast wk1 70-80M (`5badc7031d2c`, wide-spread-veto) | 0.82 / 0.9045 | No | +0.040 | Yes | -5.00 |
+
+Outside-view-veto: **-$10.00** (0W/2L). Mechanical ledger now 175 rows /
+167 trades / 118 events / 71W-96L / +$77.41 / dBrier +0.0332 / held-out
++$71.52 (was 173/165/116/71W-94L/+$87.41/+0.0312/+$81.52 at
+DEEP-2026-09-26). Side split: no 123/115/53W-62L/+$38.21; yes
+52/52/18W-34L/+$39.20 (one row each). Check: 38.21 + 39.20 = 77.41.
+
+Wide-spread-veto: **-$10.00** (0W/2L). Ledger now 22 rows / 20 trades /
+11W-9L / -$25.04 / dBrier -0.0279 / held-out -$17.22 (was 20/18/11W-7L/
+-$15.04/-0.0330/-$12.22). Side split: no 13/11/5W-6L/-$19.79; yes
+9/9/6W-3L/-$5.25 (one row each). Check: -19.79 + -5.25 = -25.04.
+
+Ruling: no boundary change. Both gates kept losers out on one event. The
+veto pair's error was the pace model and not the RYD source, which was
+minutes stale (RETRO-20260926-1820).
+
 **2026-09-23 DEEP REPAIR (documentation-only backfill; no totals
 change).** `core/counterfactual.py reconcile` lists 9 settled
 outside-view-veto rows graded narratively in this section ("named
@@ -6481,6 +6507,8 @@ shaded-vs-raw tally they pre-asked for, one row per independent event:
 | Volynets–Birrell (`b5774501ec4c`) | single-book devig 0.636 | 0.68 | toward market consensus | worse (+0.058) |
 | SPY LOW $760 (`23a99c8fe4e8`) | touch.py 0.118 | 0.08 | **measured** ES overnight print | better (−0.0075) |
 | Bondar–Ruse (`8785a067de69`, added RETRO-20260926-0615) | single-book devig 0.591 | 0.60 | toward market consensus | worse (+0.011) |
+| Musk Sep 24-26 65-89 (`ebd8a82147f6`, `3e07d64103a3`; added RETRO-20260926-1820, rows predate the rule) | bootstrap 0.36 / 0.17 | 0.30 / 0.16 | resolver-series daily counts quoted (42,35,26,18), untimestamped | better (−0.040, −0.003) |
+| MrBeast wk1 70-80M (`2437bc1e931f`, `20a3bf4a8d54`; added RETRO-20260926-1820) | pace projection ~0.92 / ~0.985 (second reconstructed) | 0.91 / 0.96 | "counter freeze / source lag" tail | worse (+0.002, +0.0014) |
 
 Unmeasured shades: 0 for 4 independent events (sign test p≈0.06
 one-sided, small n, but the direction has never flipped). Update
@@ -6499,7 +6527,15 @@ rather than a shade: (a) the liquid near-certain sibling rule
 official-figure centring rule for turnout/seat counts (RETRO-20260925-
 1421). **Tally continues:** every settled row whose note carries a
 "shade view" gets one line in its retro: raw Brier vs shade Brier.
-The next deep retro to see ≥ 8 independent events re-grades this rule. If
+The next deep retro to see ≥ 8 independent events re-grades this rule.
+**RETRO-20260926-1820: the table now holds 8 events, so the re-grade is
+due.** Sub-tally: unmeasured shades 0 for 6, shades built on quoted
+measured numbers 2 for 2 (SPY, Musk). Clarification from the MrBeast
+rows, both recorded after this rule existed and so compliance misses: a
+hand-sized "counter freeze", "source lag" or "staleness" tail added to a
+dated pace projection IS an unmeasured shade. It enters est_prob only
+with a measured freeze or lag rate. Otherwise record the projection's
+own probability and put the tail in the note as "shade view". If
 shades are winning by then, relax it. This changes recording, not bet
 eligibility: every existing gate still decides whether a row can bet.
 
