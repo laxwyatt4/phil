@@ -2,6 +2,7 @@
 
 PROTECTED CORE — the trading agent must not edit files under core/.
 """
+import gzip
 import json
 import time
 import urllib.parse
@@ -18,9 +19,17 @@ def get_json(url, params=None, retries=3):
     last_err = None
     for attempt in range(retries):
         try:
-            req = urllib.request.Request(url, headers=UA)
+            # Ask for gzip: on the operator's Windows machine an uncompressed
+            # gamma list body is cut off at ~130KB every time (IncompleteRead,
+            # 2026-09-26: 3 of 4 discovery queries failed), while the gzip
+            # body (~10x smaller) arrives whole.
+            req = urllib.request.Request(
+                url, headers={**UA, "Accept-Encoding": "gzip"})
             with urllib.request.urlopen(req, timeout=30) as resp:
-                return json.load(resp)
+                body = resp.read()
+                if resp.headers.get("Content-Encoding") == "gzip":
+                    body = gzip.decompress(body)
+                return json.loads(body)
         except Exception as e:  # noqa: BLE001 — retry then surface
             last_err = e
             time.sleep(1.5 * (attempt + 1))
