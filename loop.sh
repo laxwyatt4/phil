@@ -144,7 +144,7 @@ PY
   # The procedure alone reads as context, not a request: Sonnet 5 answered a
   # bare CYCLE.md with "what would you like me to do?" and ran nothing
   # (2026-09-26, LIGHT tick on the operator machine).
-  RUN_LINE="Run one trading cycle now by following the procedure below exactly, then stop."
+  RUN_LINE="Run one trading cycle now by following the procedure below exactly, then stop. This run is under loop.sh on the operator machine with PHIL_PUSH_BY_LOOP=1 and PHIL_LEASE=$PHIL_LEASE: never run git push or lease commands yourself; loop.sh pushes after you exit."
   PROMPT="$RUN_LINE
 
 $(cat CYCLE.md)"
